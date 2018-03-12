@@ -3,11 +3,15 @@
 ## Why
 
 ## Bump a release
-Build and push to Docker Hub are handled automatically at [CircleCI](https://circleci.com/gh/mikewaters/docker-terragrunt)
+Build and push to Docker Hub are handled automatically at [CircleCI](https://circleci.com/gh/mikewaters/docker-terragrunt).  
+In order to facilitate, I need to increment the VERSION file and tag the repo appropriately.
 
-  - bump the release number of hashicorp/terraform image in FROM stanza or Dockerfile
-  - commit and push
-  - `git tag tf-X.Y.Z && git push --tags`
+Workflow:
+
+  - bump the terraform version in VERSION file.
+  - commit and push, wait for the build to complete to certify that the docker image will work
+  - create a tag, using the `tag.sh` helper
+  - push the tag: `git push --tags`
 
 ## Remove a tag ("I done effed up")
 
