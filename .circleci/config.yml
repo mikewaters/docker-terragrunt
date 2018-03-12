@@ -1,17 +1,29 @@
 version: 2
 jobs:
-    build_and_push:
+    build:
         docker:
-            - image: circleci/buildpack-deps:jessie
+            - image: golang:1
         steps:
             - checkout
             - run: ls -al
+    push:
+        docker:
+            - image: golang:1
+        steps:
+            - checkout
+            - run: pwd
 
 workflows:
     version: 2
     release:
         jobs:
-            - build_and_push:
+            - build:
+                filters:
+                    tags:
+                        only: /.*/
+            - push:
+                requires:
+                    - build
                 filters:
                     branches:
                         ignore: /.*/
