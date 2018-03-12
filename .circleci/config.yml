@@ -20,7 +20,7 @@ jobs:
                 TAG=tf-${TF_VER}
                 docker build -t threecheese/docker-terragrunt:${TF_VER} --build-arg TFVER=${TF_VER} .
                 echo "${DOCKER_PASS}" |docker login -u ${DOCKER_LOGIN} --password-stdin
-                docker push threecheese/docker-terragrunt:${TF_VER} .
+                docker push threecheese/docker-terragrunt:${TF_VER}
 
 workflows:
     version: 2
