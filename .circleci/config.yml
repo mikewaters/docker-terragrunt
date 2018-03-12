@@ -19,7 +19,7 @@ jobs:
                 TF_VER=$(git name-rev --tags --name-only $(git rev-parse HEAD) |sed 's/^tf-//')
                 TAG=tf-${TF_VER}
                 docker build -t threecheese/docker-terragrunt:${TF_VER} --build-arg TFVER=${TF_VER} .
-                echo '${DOCKER_PASS}' |docker login -u DOCKER_LOGIN --password-stdin
+                docker login -u ${DOCKER_LOGIN} -p "${DOCKER_PASS}"
                 docker push threecheese/docker-terragrunt:${TF_VER} .
 
 workflows:
