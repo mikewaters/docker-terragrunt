@@ -14,7 +14,8 @@ jobs:
             - run: |
                 TF_VER=$(git name-rev --tags --name-only $(git rev-parse HEAD) |sed 's/^tf-//')
                 docker build -t threecheese/docker-terragrunt:${TF_VER} .
-
+                docker login -u DOCKER_LOGIN -p DOCKER_PASS
+                docker push threecheese/docker-terragrunt:${TF_VER} .
 
 workflows:
     version: 2
