@@ -1,12 +1,15 @@
+version: 2
+jobs:
+    build:
+        - checkout
+        - run: ls -al
+
 workflows:
     version: 2
-    build:
+    release:
         jobs:
-            - build:
+            - build_and_push:
                 filters:
                     tags:
                         only: /^tf-.*/
-
-                - checkout
-                - run: ls -al
 
