@@ -1,6 +1,8 @@
 version: 2
 jobs:
     build_and_push:
+        docker:
+            - image: circleci/buildpack-deps:jessie
         steps:
             - checkout
             - run: ls -al
