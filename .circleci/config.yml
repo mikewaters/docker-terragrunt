@@ -13,6 +13,8 @@ workflows:
         jobs:
             - build_and_push:
                 filters:
+                    branches:
+                        ignore: /.*/
                     tags:
                         only: /^tf-.*/
 
