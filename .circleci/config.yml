@@ -1,8 +1,9 @@
 version: 2
 jobs:
-    build:
-        - checkout
-        - run: ls -al
+    build_and_push:
+        steps:
+            - checkout
+            - run: ls -al
 
 workflows:
     version: 2
