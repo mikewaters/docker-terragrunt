@@ -5,7 +5,7 @@ jobs:
         steps:
             - checkout
             - run: |
-                docker build -t threecheese/docker-terragrunt
+                docker build -t threecheese/docker-terragrunt .
     push:
         docker:
             - image: golang:1
