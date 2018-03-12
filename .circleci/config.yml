@@ -1,29 +1,41 @@
+# Pushes to `master` will trigger 'tag' workflow, which will build the container, exiting on error code.  
+# If no error, it will tag the repo with new version if it hasnt already been tagged.
+# Tagging the repo with `tf-*` will trigger the release build, which will push the image to Docker Hub
 version: 2
 jobs:
-    build:
+    build_and_tag:
         machine: true
         steps:
             - checkout
             - run: |
-                docker build -t threecheese/docker-terragrunt .
+                TF_VER=$(cat VERSION)
+                TAG=tf-${TF_VER}
+                docker build -t threecheese/docker-terragrunt:${TF_VER} --build-arg TFVER=${TF_VER} .
+                ./tag.sh && git push --tags || echo done  
+                
     push:
         machine: true
         steps:
             - checkout
             - run: |
                 TF_VER=$(git name-rev --tags --name-only $(git rev-parse HEAD) |sed 's/^tf-//')
-                docker build -t threecheese/docker-terragrunt:${TF_VER} .
-                docker login -u DOCKER_LOGIN -p DOCKER_PASS
+                TAG=tf-${TF_VER}
+                docker build -t threecheese/docker-terragrunt:${TF_VER} --build-arg TFVER=${TF_VER} .
+                echo '${DOCKER_PASS}' |docker login -u DOCKER_LOGIN --password-stdin
                 docker push threecheese/docker-terragrunt:${TF_VER} .
 
 workflows:
     version: 2
-    release:
+    tag:
         jobs:
-            - build:
+            - build_and_tag:
                 filters:
                     tags:
-                        only: /.*/
+                        ignore: /^tf-.*/
+                    branches:
+                        only: master
+    release:
+        jobs:
             - push:
                 requires:
                     - build
