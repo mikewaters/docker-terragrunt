@@ -1,5 +1,6 @@
 # Pushes to master will trigger 'verify' workflow, which will build the container, exiting on error code.  
 # Tagging the repo with `tf-*` will trigger the release build, which will push the image to Docker Hub
+# You should verify that the master build passed before tagging.
 version: 2
 jobs:
     build:
