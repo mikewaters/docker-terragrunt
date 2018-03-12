@@ -12,7 +12,7 @@ jobs:
         steps:
             - checkout
             - run: |
-                TAG=$(git name-rev --tags --name-only $(git rev-parse HEAD))
+                TAG=$(git name-rev --tags --name-only $(git rev-parse HEAD) |sed 's/^tf-//')
                 echo $TAG
 
 workflows:
