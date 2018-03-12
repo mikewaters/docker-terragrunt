@@ -11,7 +11,9 @@ jobs:
             - image: golang:1
         steps:
             - checkout
-            - run: pwd
+            - run: |
+                TAG=$(git name-rev --tags --name-only $(git rev-parse HEAD))
+                echo $TAG
 
 workflows:
     version: 2
