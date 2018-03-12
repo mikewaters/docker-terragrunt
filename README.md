@@ -14,10 +14,12 @@ Workflow:
 
   - bump the terraform version in VERSION file.
   - commit and push, wait for the build to complete to certify that the docker image will work
-  - create a tag, using the `tag.sh` helper
+  - create a tag, using the tag.sh helper
   - push the tag: `git push --tags`
 
 ## Remove a tag ("I done effed up")
 
-  - git tag -d tf-X.Y.Z
-  - git push origin :tf-X.Y.Z
+  - `git tag -d tf-X.Y.Z`
+  - `git push origin :tf-X.Y.Z`
+
+Dockerfile borrowed from https://github.com/chrisns/docker-terragrunt
