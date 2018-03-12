@@ -33,8 +33,6 @@ workflows:
     release:
         jobs:
             - push:
-                requires:
-                    - build
                 filters:
                     branches:
                         ignore: /.*/
